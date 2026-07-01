@@ -19,10 +19,12 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/logout',           [AuthController::class, 'logout']);
         Route::post('/cambiar-password', [AuthController::class, 'cambiarPassword']);
         Route::get('/perfil',            [AuthController::class, 'perfil']);
+        Route::patch('/reset-dispositivo/{id}', [AuthController::class, 'resetDispositivo']);
     });
 
     // Docentes
     Route::apiResource('docentes', DocenteController::class);
+    Route::patch('/docentes/{id}/reactivar', [DocenteController::class, 'reactivar']);
 
     // Marcados
     Route::get('/marcados',      [MarcadoController::class, 'index']);
