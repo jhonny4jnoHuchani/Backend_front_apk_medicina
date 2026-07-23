@@ -8,9 +8,8 @@ class Horario extends Model
 {
     protected $table = 'horarios';
 
-
     protected $fillable = [
-        'paralelo_id',
+        'paralelo_materia_id',
         'ubicacion_id',
         'dia_semana',
         'hora_inicio',
@@ -19,9 +18,9 @@ class Horario extends Model
         'estado',
     ];
 
-    public function paralelo()
+    public function paraleloMateria()
     {
-        return $this->belongsTo(Paralelo::class, 'paralelo_id');
+        return $this->belongsTo(ParaleloMateria::class, 'paralelo_materia_id');
     }
 
     public function ubicacion()

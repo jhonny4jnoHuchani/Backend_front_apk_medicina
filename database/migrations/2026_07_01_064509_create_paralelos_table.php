@@ -10,12 +10,6 @@ return new class extends Migration
     {
         Schema::create('paralelos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('materia_id')
-                ->constrained('materia')
-                ->restrictOnDelete();
-            $table->foreignId('docente_id')
-                ->constrained('docente')
-                ->restrictOnDelete();
             $table->smallInteger('grado');
             $table->string('paralelo', 10);
             $table->smallInteger('capacidad')->default(30);

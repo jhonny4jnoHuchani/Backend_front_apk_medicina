@@ -8,8 +8,6 @@ class Materia extends Model
 {
     protected $table = 'materia';
 
-
-
     protected $fillable = [
         'nombre_materia',
         'codigo',
@@ -19,8 +17,15 @@ class Materia extends Model
         'estado',
     ];
 
+    // N:M con Paralelo a través de paralelo_materia
     public function paralelos()
     {
-        return $this->hasMany(Paralelo::class, 'materia_id');
+        return $this->belongsToMany(Paralelo::class, 'paralelo_materia', 'materia_id', 'paralelo_id')
+                    ->withPivot('docente_id');
+    }
+
+    public function paraleloMaterias()
+    {
+        return $this->hasMany(ParaleloMateria::class, 'materia_id');
     }
 }

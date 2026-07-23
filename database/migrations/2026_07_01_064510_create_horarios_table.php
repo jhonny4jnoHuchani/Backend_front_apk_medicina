@@ -11,8 +11,8 @@ return new class extends Migration
     {
         Schema::create('horarios', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('paralelo_id')
-                ->constrained('paralelos')
+            $table->foreignId('paralelo_materia_id')
+                ->constrained('paralelo_materia')
                 ->restrictOnDelete();
             $table->foreignId('ubicacion_id')
                 ->constrained('ubicacion')
@@ -25,7 +25,6 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        // Evita horarios donde la hora final sea menor o igual a la de inicio
         DB::statement('ALTER TABLE horarios ADD CONSTRAINT chk_horario_rango CHECK (hora_fin > hora_inicio)');
     }
 

@@ -9,26 +9,28 @@ class Paralelo extends Model
     protected $table = 'paralelos';
 
     protected $fillable = [
-        'materia_id',
-        'docente_id',
         'grado',
         'paralelo',
         'capacidad',
         'estado',
     ];
 
-    public function materia()
+    // N:M con Materia a través de paralelo_materia
+    public function materias()
     {
-        return $this->belongsTo(Materia::class, 'materia_id');
+        return $this->belongsToMany(Materia::class, 'paralelo_materia', 'paralelo_id', 'materia_id')
+                    ->withPivot('docente_id');
     }
 
-    public function docente()
+    // N:M con Docente a través de paralelo_materia
+    public function docentes()
     {
-        return $this->belongsTo(Docente::class, 'docente_id');
+        return $this->belongsToMany(Docente::class, 'paralelo_materia', 'paralelo_id', 'docente_id')
+                    ->withPivot('materia_id');
     }
 
-    public function horarios()
+    public function paraleloMaterias()
     {
-        return $this->hasMany(Horario::class, 'paralelo_id');
+        return $this->hasMany(ParaleloMateria::class, 'paralelo_id');
     }
 }
