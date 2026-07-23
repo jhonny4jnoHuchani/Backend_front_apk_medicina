@@ -4,6 +4,10 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\DocenteController;
 use App\Http\Controllers\Api\MarcadoController;
 use App\Http\Controllers\Api\ReconocimientoController;
+use App\Http\Controllers\Api\MateriaController;
+use App\Http\Controllers\Api\ParaleloController;
+use App\Http\Controllers\Api\AsignacionController;
+
 use Illuminate\Support\Facades\Route;
 
 // ── Rutas públicas (sin token) ──────────────────────────────
@@ -36,5 +40,20 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/verificar',           [ReconocimientoController::class, 'verificar']);
         Route::post('/registrar-embedding', [ReconocimientoController::class, 'registrarEmbedding']);
         Route::get('/estado/{docenteId}',   [ReconocimientoController::class, 'estado']);
+    });
+
+    // Recursos Materias
+    Route::apiResource('materias', MateriaController::class);
+
+    // Recursos Paralelos
+    Route::apiResource('paralelos', ParaleloController::class);
+
+
+    Route::prefix('asignaciones')->group(function () {
+        Route::get('/', [AsignacionController::class, 'index']);         // Listar
+        Route::post('/', [AsignacionController::class, 'store']);        // Asignar materia a paralelo
+        Route::put('{id}/asignar-docente', [AsignacionController::class, 'asignarDocente']);  // Poner docente
+        Route::delete('{id}/quitar-docente', [AsignacionController::class, 'quitarDocente']); // Sacar docente
+        Route::delete('{id}', [AsignacionController::class, 'destroy']); // Eliminar asignación
     });
 });

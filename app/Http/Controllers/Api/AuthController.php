@@ -39,9 +39,17 @@ class AuthController extends Controller
         // Primer login — registrar device_id
         if ($user->primer_login || !$user->device_id) {
             $user->update([
-                'device_id'   => $request->device_id,
-                'primer_login'=> false,
+                'device_id'    => $request->device_id,
+                'primer_login' => false,
             ]);
+            $user = $user->fresh(); // ← refrescar datos
+        } else {
+            // Ya tiene device_id asignado — debe coincidir
+            if ($user->device_id !== $request->device_id) {
+                return response()->json([
+                    'message' => 'Dispositivo no autorizado. Contacte al administrador.'
+                ], 403);
+            }
         }
 
         $user->update(['ultimo_acceso' => now()]);

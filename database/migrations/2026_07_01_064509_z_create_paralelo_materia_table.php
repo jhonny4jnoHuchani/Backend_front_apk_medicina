@@ -10,15 +10,20 @@ return new class extends Migration
     {
         Schema::create('paralelo_materia', function (Blueprint $table) {
             $table->id();
+
             $table->foreignId('materia_id')
                 ->constrained('materia')
                 ->restrictOnDelete();
+
             $table->foreignId('paralelo_id')
                 ->constrained('paralelos')
                 ->restrictOnDelete();
+
             $table->foreignId('docente_id')
+                ->nullable() 
                 ->constrained('docente')
                 ->restrictOnDelete();
+
             $table->timestamp('created_at')->useCurrent();
 
             $table->unique(['materia_id', 'paralelo_id', 'docente_id']);
