@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('ubicacion_id')
                 ->constrained('ubicacion')
                 ->restrictOnDelete();
-            $table->enum('dia_semana', ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado']);
+            $table->enum('dia_semana', ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo']);
             $table->time('hora_inicio');
             $table->time('hora_fin');
             $table->enum('tipo_actividad', ['clase', 'laboratorio', 'tutoria', 'otro'])->default('clase');

@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\ReconocimientoController;
 use App\Http\Controllers\Api\MateriaController;
 use App\Http\Controllers\Api\ParaleloController;
 use App\Http\Controllers\Api\AsignacionController;
+use App\Http\Controllers\Api\UbicacionController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -55,5 +56,13 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('{id}/asignar-docente', [AsignacionController::class, 'asignarDocente']);  // Poner docente
         Route::delete('{id}/quitar-docente', [AsignacionController::class, 'quitarDocente']); // Sacar docente
         Route::delete('{id}', [AsignacionController::class, 'destroy']); // Eliminar asignación
+    });
+//ubicaciones
+    Route::prefix('ubicaciones')->group(function () {
+        Route::get('/', [UbicacionController::class, 'index']);                    // Listar
+        Route::post('/crear', [UbicacionController::class, 'store']);              // Crear
+        Route::get('{id}/ver', [UbicacionController::class, 'show']);              // Ver una
+        Route::put('{id}/actualizar', [UbicacionController::class, 'update']);     // Editar
+        Route::delete('{id}/eliminar', [UbicacionController::class, 'destroy']);   // Desactivar
     });
 });
