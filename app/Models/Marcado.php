@@ -8,15 +8,12 @@ class Marcado extends Model
 {
     protected $table = 'marcados';
 
-    const UPDATED_AT = null;
-
     protected $fillable = [
         'docente_id',
         'horario_id',
         'ubicacion_id',
         'fecha',
-        'hora_inicio',
-        'hora_final',
+        'hora_marcado',
         'tipo_marcado',
         'latitud',
         'longitud',
@@ -25,7 +22,7 @@ class Marcado extends Model
         'observacion',
         'estado_asistencia',
         'minutos_retraso',
-        'minutos_trabajados',
+        'minutos_adelanto',
         'offline',
         'sincronizacion_offline',
         'fecha_dispositivo',
@@ -40,6 +37,8 @@ class Marcado extends Model
             'fecha_dispositivo'      => 'datetime',
             'latitud'                => 'decimal:8',
             'longitud'               => 'decimal:8',
+            'minutos_retraso'        => 'decimal:2',
+            'minutos_adelanto'       => 'decimal:2',
         ];
     }
 
